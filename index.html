@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ficha Técnica de Muros | ArquiSpec</title>
+<title>Ficha técnica de muros | ArquiSpec</title>
 <style>
 :root{--navy:#17324d;--blue:#2563eb;--pale:#eef4fb;--line:#d9e2ec;--ink:#1e293b;--muted:#64748b;--white:#fff;--green:#0f766e}
 *{box-sizing:border-box}body{margin:0;background:#f3f6fa;color:var(--ink);font:15px/1.5 "Segoe UI",Arial,sans-serif}
@@ -29,99 +29,121 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:10px 0 25px}
 @media(max-width:850px){.fields{grid-template-columns:repeat(2,minmax(0,1fr))}.stats{grid-template-columns:repeat(2,1fr)}.split{grid-template-columns:1fr}}
 @media(max-width:480px){.fields{grid-template-columns:1fr}.panel{padding:15px}.stats{gap:8px}.stat strong{font-size:20px}}
 @media print{body{background:white}.toolbar,.table-actions,.no-print,footer{display:none!important}main{margin:0;max-width:none;padding:0}.panel{box-shadow:none;break-inside:avoid;border-color:#bbb}.stats{grid-template-columns:repeat(4,1fr)}header{background:#17324d!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}input,select{border:0;padding:0;appearance:none}.table-wrap{overflow:visible}table{min-width:0;font-size:10px}th,td{padding:6px}}
+
+/* Barra lateral de recursos y temas */
+:root{--page:#f3f6fa;--panel:#ffffff;--text:#1e293b;--line:#d9e2ec;--tablehead:#edf3f9;--hover:#f8fbff;--field:#ffffff;--fieldtext:#1e293b}
+body{background:var(--page);color:var(--text);transition:background .2s,color .2s}
+.panel{background:var(--panel);border-color:var(--line)}
+input,select,textarea{background:var(--field);color:var(--fieldtext);border-color:var(--line)}
+th{background:var(--tablehead);color:var(--text)}
+td{border-color:var(--line)}tbody tr:hover{background:var(--hover)}
+header{padding-right:300px}
+main{max-width:none;margin:24px 290px 24px 24px;padding:0 0 40px}
+.side-resources{position:fixed;right:18px;top:18px;bottom:18px;width:245px;overflow:auto;z-index:20;background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:0 8px 28px #0f172a12}
+.side-resources h2{font-size:16px;margin:0 0 5px;color:var(--text)}.side-resources .side-sub{font-size:12px;color:var(--muted);margin:0 0 14px}
+.resource-link{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);background:var(--page);border:1px solid var(--line);border-radius:10px;padding:10px;margin:8px 0;transition:transform .15s,border-color .15s}
+.resource-link:hover{transform:translateY(-1px);border-color:var(--blue)}
+.resource-link img{width:30px;height:30px;object-fit:contain;border-radius:6px;background:white;padding:3px;flex-shrink:0}.resource-link strong{display:block;font-size:13px}.resource-link small{display:block;color:var(--muted);font-size:11px;overflow-wrap:anywhere}
+.theme-toggle{display:inline-flex;align-items:center;gap:7px}.suggestion-btn{display:flex;justify-content:center;align-items:center;gap:8px;width:100%;margin-top:16px;background:var(--blue);color:white;text-decoration:none;border-radius:9px;padding:11px 12px;font-weight:700;font-size:13px}
+body.dark{--page:#25282d;--panel:#30343a;--text:#e5e7eb;--line:#4b515a;--tablehead:#3a4048;--hover:#383e46;--field:#272b30;--fieldtext:#f3f4f6;--pale:#393f47;--muted:#aeb7c2}
+body.dark .stat{background:var(--pale);border-color:var(--line)}body.dark .stat strong,body.dark .panel h2{color:#e5e7eb}body.dark .secondary{background:#454b54;color:#f3f4f6}body.dark .danger{background:#592f35;color:#fecaca}body.dark header{background:linear-gradient(120deg,#202328,#3c424a)}body.dark .note{color:#b9c1ca}
+@media(max-width:1100px){header{padding-right:22px}main{margin:20px 18px;padding:0 0 30px}.side-resources{position:static;width:auto;margin:0 18px 20px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.side-resources h2,.side-resources .side-sub{grid-column:1/-1}.resource-link{margin:0}.suggestion-btn{grid-column:1/-1}}
+@media(max-width:520px){.side-resources{grid-template-columns:1fr}.side-resources h2,.side-resources .side-sub,.suggestion-btn{grid-column:auto}.toolbar button{flex:1}}
+@media print{.side-resources{display:none!important}header{padding-right:22px}main{margin:0;max-width:none;padding:0}body{--page:#fff;--panel:#fff;--text:#000;--line:#bbb;--tablehead:#eee;--hover:#fff;--field:#fff;--fieldtext:#000}}
+
 </style>
 </head>
 <body>
 <header>
-  <div class="eyebrow">Documentación técnica y especificaciones · Arquitectura</div>
-  <h1>ArquiSpec | Ficha Técnica de Muro</h1>
-  <p>Composición de capas constructivas (BIM), especificaciones técnicas y metrado normalizado.</p>
+  <div class="eyebrow">Documentación técnica · Arquitectura</div>
+  <h1>ArquiSpec | Ficha de muro</h1>
+  <p>Especificaciones de capas, materiales y estimación preliminar de cantidades.</p>
 </header>
 <main>
   <div class="toolbar">
+    <button class="secondary theme-toggle" id="themeButton" type="button" onclick="toggleTheme()" aria-label="Cambiar tema">🌙 Modo oscuro</button>
     <button class="primary" onclick="calcular()">↻ Recalcular cantidades</button>
     <button class="secondary" onclick="window.print()">▤ Imprimir / Guardar PDF</button>
-    <button class="secondary" onclick="restablecer()">Restablecer datos estándar</button>
+    <button class="secondary" onclick="restablecer()">Restablecer ejemplo</button>
   </div>
   <section class="panel">
-    <h2>01. Datos generales del elemento constructivo</h2>
+    <h2>01. Datos generales del muro</h2>
     <div class="fields">
-      <div><label for="proyecto">Proyecto / Código de obra</label><input id="proyecto" value="PRY-2026 | Edificio Multifamiliar Residencial"></div>
-      <div><label for="familia">Familia / Categoría BIM</label><input id="familia" value="Muro básico - Cerramiento exterior"></div>
-      <div><label for="tipo">Tipo de muro (especificación)</label><select id="tipo">
-        <option value="MUR-EXT-01 | Muro de albañilería confinada (soga, e=16 cm)" selected>MUR-EXT-01 | Muro de albañilería confinada (soga, e=16 cm)</option>
-        <option value="MUR-EXT-02 | Muro de albañilería confinada (cabeza, e=27 cm)">MUR-EXT-02 | Muro de albañilería confinada (cabeza, e=27 cm)</option>
-        <option value="MUR-INT-01 | Tabique interior tarrajeado (soga, e=15 cm)">MUR-INT-01 | Tabique interior tarrajeado (soga, e=15 cm)</option>
-        <option value="MUR-DRY-01 | Tabique Drywall doble placa ST (e=10 cm)">MUR-DRY-01 | Tabique Drywall doble placa ST (e=10 cm)</option>
-        <option value="MUR-CON-01 | Placa de concreto armado estructural (e=20 cm)">MUR-CON-01 | Placa de concreto armado estructural (e=20 cm)</option>
-        <option value="MUR-CAR-01 | Muro perimétrico caravista (e=15 cm)">MUR-CAR-01 | Muro perimétrico caravista (e=15 cm)</option>
-      </select></div>
-      <div><label for="unidad">Sistema de unidades</label><select id="unidad"><option value="m">Sistema Métrico Decimal (m, m², m³)</option></select></div>
-      <div><label for="largo">Longitud de tramo (m)</label><input id="largo" type="number" min="0.1" step="0.1" value="4.00"></div>
-      <div><label for="altura">Altura libre de entrepiso (m)</label><input id="altura" type="number" min="0.1" step="0.1" value="2.80"></div>
-      <div><label for="desperdicio">Factor de desperdicio normativo (%)</label><input id="desperdicio" type="number" min="0" max="50" step="1" value="5"></div>
-      <div><label for="ubicacion">Ubicación / Sector y nivel</label><input id="ubicacion" value="Nivel +0.00 (Piso 1 - Ejes perimétricos A-B / 1-4)"></div>
+      <div><label for="proyecto">Proyecto</label><input id="proyecto" value="Vivienda unifamiliar"></div>
+      <div><label for="familia">Familia</label><input id="familia" value="Muro básico"></div>
+      <div><label for="tipo">Tipo de muro</label><select id="tipo"><option>Muro de ladrillo visto</option><option>Muro de albañilería tarrajeado</option><option>Tabique interior</option><option>Muro de concreto armado</option><option>Drywall</option></select></div>
+      <div><label for="unidad">Unidad de cálculo</label><select id="unidad"><option value="m">Metros (m)</option></select></div>
+      <div><label for="largo">Longitud del muro (m)</label><input id="largo" type="number" min="0.1" step="0.1" value="4"></div>
+      <div><label for="altura">Altura del muro (m)</label><input id="altura" type="number" min="0.1" step="0.1" value="2.8"></div>
+      <div><label for="desperdicio">Desperdicio estimado (%)</label><input id="desperdicio" type="number" min="0" max="50" step="1" value="5"></div>
+      <div><label for="ubicacion">Ubicación / nivel</label><input id="ubicacion" value="Primer nivel"></div>
     </div>
-    <p class="note">Dimensiones normalizadas según modulación arquitectónica. El área calculada (L × H) representa el área bruta del paño antes de deducción de vanos según norma técnica de metrados.</p>
+    <p class="note">Completa las dimensiones reales del proyecto. El área se calcula como longitud × altura; no descuenta puertas ni ventanas.</p>
   </section>
   <div class="stats">
     <div class="stat"><span>Área del muro</span><strong id="area">11.20 m²</strong></div>
-    <div class="stat"><span>Grosor total de capas</span><strong id="grosor">16.0 cm</strong></div>
-    <div class="stat"><span>Ladrillos estimados</span><strong id="ladrillos">459 unid.</strong></div>
-    <div class="stat"><span>Mortero estimado</span><strong id="mortero">0.635 m³</strong></div>
+    <div class="stat"><span>Grosor total de capas</span><strong id="grosor">26.0 cm</strong></div>
+    <div class="stat"><span>Ladrillos estimados</span><strong id="ladrillos">— unid.</strong></div>
+    <div class="stat"><span>Mortero estimado</span><strong id="mortero">— m³</strong></div>
   </div>
   <section class="panel">
     <h2>02. Capas constructivas <small>Exterior → interior</small></h2>
     <div class="table-wrap"><table id="capas">
       <thead><tr><th>Orden</th><th>Función / capa</th><th>Material</th><th>Espesor (cm)</th><th>Acabado / envolvente</th><th>Nota técnica</th><th class="no-print">Acción</th></tr></thead>
       <tbody>
-        <tr><td>1</td><td><input value="Acabado exterior / Envolvente"></td><td><input value="Tarrajeo frotachado con hidrófugo (1:4)"></td><td><input class="espesor" type="number" min="0" step="0.1" value="1.5"></td><td><select><option selected>Envolvente</option><option>Sin envolvente</option></select></td><td><input value="Mortero impermeabilizado, e=1.5 cm"></td><td class="no-print"><button class="danger" onclick="eliminarFila(this)">Quitar</button></td></tr>
-        <tr><td>2</td><td><input value="Núcleo estructural"></td><td><input value="Ladrillo de arcilla King Kong 18H (9×13×24)"></td><td><input class="espesor" type="number" min="0" step="0.1" value="13.0"></td><td><select><option selected>Sin envolvente</option><option>Envolvente</option></select></td><td><input value="Aparejo de soga, junta e=1.5 cm (NTE E.070)"></td><td class="no-print"><button class="danger" onclick="eliminarFila(this)">Quitar</button></td></tr>
-        <tr><td>3</td><td><input value="Acabado interior / Revoque"></td><td><input value="Tarrajeo frotachado interior (1:5)"></td><td><input class="espesor" type="number" min="0" step="0.1" value="1.5"></td><td><select><option selected>Envolvente</option><option>Sin envolvente</option></select></td><td><input value="Superficie aplomada lista para empaste"></td><td class="no-print"><button class="danger" onclick="eliminarFila(this)">Quitar</button></td></tr>
+        <tr><td>1</td><td><input value="Acabado exterior"></td><td><input value="Tarrajeo cemento-arena"></td><td><input class="espesor" type="number" min="0" step="0.1" value="1.5"></td><td><select><option>Envolvente</option><option>Sin envolvente</option></select></td><td><input value="Según exposición"></td><td class="no-print"><button class="danger" onclick="eliminarFila(this)">Quitar</button></td></tr>
+        <tr><td>2</td><td><input value="Estructura"></td><td><input value="Ladrillo cerámico"></td><td><input class="espesor" type="number" min="0" step="0.1" value="23"></td><td><select><option>Sin envolvente</option><option>Envolvente</option></select></td><td><input value="Definir tipo y aparejo"></td><td class="no-print"><button class="danger" onclick="eliminarFila(this)">Quitar</button></td></tr>
+        <tr><td>3</td><td><input value="Acabado interior"></td><td><input value="Tarrajeo cemento-arena"></td><td><input class="espesor" type="number" min="0" step="0.1" value="1.5"></td><td><select><option>Envolvente</option><option>Sin envolvente</option></select></td><td><input value="Listo para pintar"></td><td class="no-print"><button class="danger" onclick="eliminarFila(this)">Quitar</button></td></tr>
       </tbody>
     </table></div>
     <div class="table-actions no-print"><button class="secondary" onclick="agregarCapa()">+ Agregar capa</button></div>
-    <p class="note">El espesor total suma las capas de revestimiento y el núcleo estructural. Parámetros normalizados según tolerancias constructivas y modulación arquitectónica estándar (15 - 16 cm).</p>
+    <p class="note">El grosor total suma los espesores de esta tabla. Los materiales y espesores mostrados son un ejemplo editable, no una especificación estructural aprobada.</p>
   </section>
   <div class="split">
     <section class="panel">
-      <h2>03. Materiales y rendimientos unitarios</h2>
+      <h2>03. Materiales y cantidades</h2>
       <div class="table-wrap"><table id="materiales">
         <thead><tr><th>Material</th><th>Consumo base por m²</th><th>Unidad</th><th>Cantidad calculada</th><th class="no-print">Acción</th></tr></thead>
         <tbody>
-          <tr><td><input value="Ladrillo de arcilla King Kong 18H (9×13×24 cm)"></td><td><input class="consumo" type="number" min="0" step="0.1" value="39.0"></td><td><select><option selected>unidades</option><option>kg</option><option>bolsas</option><option>m³</option><option>litros</option></select></td><td class="cantidad">—</td><td class="no-print"><button class="danger" onclick="eliminarFila(this)">Quitar</button></td></tr>
-          <tr><td><input value="Mortero de asentado (cemento-arena 1:4)"></td><td><input class="consumo" type="number" min="0" step="0.001" value="0.024"></td><td><select><option selected>m³</option><option>kg</option><option>bolsas</option><option>litros</option><option>unidades</option></select></td><td class="cantidad">—</td><td class="no-print"><button class="danger" onclick="eliminarFila(this)">Quitar</button></td></tr>
-          <tr><td><input value="Mortero para tarrajeo (ambas caras, e=1.5 cm)"></td><td><input class="consumo" type="number" min="0" step="0.001" value="0.030"></td><td><select><option selected>m³</option><option>kg</option><option>bolsas</option><option>litros</option><option>unidades</option></select></td><td class="cantidad">—</td><td class="no-print"><button class="danger" onclick="eliminarFila(this)">Quitar</button></td></tr>
-          <tr><td><input value="Cemento Portland Tipo I (dosificación combinada)"></td><td><input class="consumo" type="number" min="0" step="0.1" value="18.5"></td><td><select><option selected>kg</option><option>bolsas</option><option>m³</option><option>litros</option><option>unidades</option></select></td><td class="cantidad">—</td><td class="no-print"><button class="danger" onclick="eliminarFila(this)">Quitar</button></td></tr>
-          <tr><td><input value="Arena gruesa y fina clasificada"></td><td><input class="consumo" type="number" min="0" step="0.001" value="0.054"></td><td><select><option selected>m³</option><option>kg</option><option>bolsas</option><option>litros</option><option>unidades</option></select></td><td class="cantidad">—</td><td class="no-print"><button class="danger" onclick="eliminarFila(this)">Quitar</button></td></tr>
-          <tr><td><input value="Agua para mezclado y curado técnico"></td><td><input class="consumo" type="number" min="0" step="0.1" value="12.0"></td><td><select><option selected>litros</option><option>m³</option><option>kg</option><option>bolsas</option><option>unidades</option></select></td><td class="cantidad">—</td><td class="no-print"><button class="danger" onclick="eliminarFila(this)">Quitar</button></td></tr>
+          <tr><td><input value="Ladrillo cerámico"></td><td><input class="consumo" type="number" min="0" step="0.1" value="38"></td><td><select><option>unidades</option><option>kg</option><option>bolsas</option><option>m³</option><option>litros</option></select></td><td class="cantidad">—</td><td class="no-print"><button class="danger" onclick="eliminarFila(this)">Quitar</button></td></tr>
+          <tr><td><input value="Mortero de asentado"></td><td><input class="consumo" type="number" min="0" step="0.001" value="0.02"></td><td><select><option>m³</option><option>kg</option><option>bolsas</option><option>litros</option><option>unidades</option></select></td><td class="cantidad">—</td><td class="no-print"><button class="danger" onclick="eliminarFila(this)">Quitar</button></td></tr>
+          <tr><td><input value="Cemento (referencial)"></td><td><input class="consumo" type="number" min="0" step="0.1" value="7"></td><td><select><option>kg</option><option>bolsas</option><option>m³</option><option>litros</option><option>unidades</option></select></td><td class="cantidad">—</td><td class="no-print"><button class="danger" onclick="eliminarFila(this)">Quitar</button></td></tr>
+          <tr><td><input value="Arena (referencial)"></td><td><input class="consumo" type="number" min="0" step="0.001" value="0.015"></td><td><select><option>m³</option><option>kg</option><option>bolsas</option><option>litros</option><option>unidades</option></select></td><td class="cantidad">—</td><td class="no-print"><button class="danger" onclick="eliminarFila(this)">Quitar</button></td></tr>
         </tbody>
       </table></div>
       <div class="table-actions no-print"><button class="secondary" onclick="agregarMaterial()">+ Agregar material</button></div>
-      <p class="note">Fórmula de cómputo métrico: Cantidad = Área (m²) × Consumo unitario × (1 + % desperdicio). Ratios obtenidos de análisis de costos unitarios y pliegos técnicos de arquitectura.</p>
+      <p class="note">La cantidad = área × consumo base por m² × (1 + desperdicio). Ajusta el consumo a la ficha técnica, el formato del ladrillo y la dosificación del proyecto.</p>
     </section>
     <section class="panel">
-      <h2>04. Resumen de especificación técnica</h2>
+      <h2>04. Resumen de ficha</h2>
       <div class="summary-list">
-        <div>Proyecto / Código</div><div id="resProyecto">PRY-2026 | Edificio Multifamiliar Residencial</div>
-        <div>Tipo y código de muro</div><div id="resTipo">MUR-EXT-01 | Muro de albañilería confinada (soga, e=16 cm)</div>
-        <div>Dimensiones nominales</div><div id="resDim">4.00 × 2.80 m</div>
-        <div>Área bruta calculada</div><div id="resArea">11.20 m²</div>
-        <div>Factor de desperdicio</div><div id="resDesperdicio">5 %</div>
-        <div>Fecha de emisión técnica</div><div id="fecha"></div>
+        <div>Proyecto</div><div id="resProyecto">Vivienda unifamiliar</div>
+        <div>Tipo de muro</div><div id="resTipo">Muro de ladrillo visto</div>
+        <div>Dimensiones</div><div id="resDim">4.00 × 2.80 m</div>
+        <div>Área sin descontar vanos</div><div id="resArea">11.20 m²</div>
+        <div>Desperdicio aplicado</div><div id="resDesperdicio">5 %</div>
+        <div>Fecha de emisión</div><div id="fecha"></div>
       </div>
       <hr style="border:0;border-top:1px solid #e2e8f0;margin:18px 0">
-      <label for="observaciones">Prescripciones técnicas y normativa aplicable</label>
-      <textarea id="observaciones" style="width:100%;min-height:115px;padding:10px;border:1px solid #cbd5e1;border-radius:7px;font:inherit;line-height:1.4" placeholder="Normativa aplicable, resistencia, juntas, acabado, detalles...">• Unidad de albañilería: Ladrillo de arcilla cocida King Kong 18 huecos (resistencia a compresión f'b ≥ 130 kg/cm², f'm ≥ 65 kg/cm²).
-• Mortero de asentado tipo P2 (cemento:arena 1:4). Espesor uniforme de juntas horizontales y verticales: 10 a 15 mm.
-• Confinamiento: Anclaje y traslape a columnetas y vigas soleras según plano de estructuras E-01 y norma de albañilería.
-• Revoques: Tarrajeo exterior frotachado con hidrófugo e=1.5 cm; tarrajeo interior frotachado e=1.5 cm aplomado.
-• Curado: Riego continuo por aspersión durante un periodo mínimo de 7 días consecutivos.</textarea>
-      <p class="note"><span class="tag">Especificación Técnica</span> Los valores normalizados corresponden a cómputos métricos de arquitectura y especificaciones de partida antes de deducción de vanos.</p>
+      <label for="observaciones">Observaciones técnicas</label>
+      <textarea id="observaciones" style="width:100%;min-height:100px;padding:10px;border:1px solid #cbd5e1;border-radius:7px;font:inherit" placeholder="Normativa aplicable, resistencia, juntas, acabado, detalles...">Verificar dimensiones, resistencia, tipo de unidad de albañilería y dosificación según planos y normativa aplicable.</textarea>
+      <p class="note"><span class="tag">Estimación preliminar</span> Validar las cantidades con metrados, planos, especificaciones y profesional responsable antes de construir.</p>
     </section>
   </div>
 </main>
-<footer>ArquiSpec · Documentación técnica de arquitectura y especificación de partidas constructivas · Diseñado según criterios técnicos de edificación.</footer>
+
+<aside class="side-resources" aria-label="Recursos externos de arquitectura">
+  <h2>Biblioteca de arquitectura</h2>
+  <p class="side-sub">Enlaces útiles para inspiración, detalles y especificaciones.</p>
+  <a class="resource-link" href="https://www.archdaily.com/" target="_blank" rel="noopener noreferrer"><img src="https://www.google.com/s2/favicons?domain=archdaily.com&sz=64" alt="Logo ArchDaily"><span><strong>ArchDaily</strong><small>Proyectos e inspiración</small></span></a>
+  <a class="resource-link" href="https://www.arcat.com/" target="_blank" rel="noopener noreferrer"><img src="https://www.google.com/s2/favicons?domain=arcat.com&sz=64" alt="Logo ARCAT"><span><strong>ARCAT</strong><small>Productos y especificaciones</small></span></a>
+  <a class="resource-link" href="https://www.caddetails.com/" target="_blank" rel="noopener noreferrer"><img src="https://www.google.com/s2/favicons?domain=caddetails.com&sz=64" alt="Logo CADdetails"><span><strong>CADdetails</strong><small>CAD, BIM y detalles</small></span></a>
+  <a class="resource-link" href="https://www.detail.de/en" target="_blank" rel="noopener noreferrer"><img src="https://www.google.com/s2/favicons?domain=detail.de&sz=64" alt="Logo DETAIL"><span><strong>DETAIL</strong><small>Arquitectura y construcción</small></span></a>
+  <a class="resource-link" href="https://detail-library.co.uk/" target="_blank" rel="noopener noreferrer"><img src="https://www.google.com/s2/favicons?domain=detail-library.co.uk&sz=64" alt="Logo Detail Library"><span><strong>Detail Library</strong><small>Detalles constructivos</small></span></a>
+  <a class="suggestion-btn" href="mailto:jeanalexanderdelrio606@gmail.com?subject=Sugerencia%20para%20ArquiSpec&body=Hola%2C%20quiero%20compartir%20una%20sugerencia%20para%20ArquiSpec%3A%0A%0A">✉ Enviar una sugerencia</a>
+</aside>
+
+<footer>ArquiSpec · Herramienta de apoyo para metrados preliminares · No sustituye el diseño ni la revisión profesional.</footer>
 <script>
 function num(id){return Math.max(0,Number(document.getElementById(id).value)||0)}
 function fmt(n,d=2){return n.toLocaleString('es-PE',{minimumFractionDigits:d,maximumFractionDigits:d})}
@@ -136,17 +158,9 @@ function calcular(){
    tr.querySelector('.cantidad').textContent=fmt(cantidad,consumo<1?3:1)+' '+tr.querySelector('select').value;
  });
  const ladrillosRow=[...document.querySelectorAll('#materiales tbody tr')].find(tr=>/ladrillo/i.test(tr.querySelector('td input')?.value||''));
- const morteroRows=[...document.querySelectorAll('#materiales tbody tr')].filter(tr=>/mortero/i.test(tr.querySelector('td input')?.value||''));
+ const morteroRow=[...document.querySelectorAll('#materiales tbody tr')].find(tr=>/mortero/i.test(tr.querySelector('td input')?.value||''));
  document.getElementById('ladrillos').textContent=ladrillosRow?fmt(area*(Number(ladrillosRow.querySelector('.consumo').value)||0)*(1+desperdicio),0)+' unid.':'— unid.';
- if(morteroRows.length > 0){
-   const totalMorteroVol = morteroRows.reduce((acc, tr) => {
-     const unit = tr.querySelector('select')?.value;
-     return unit === 'm³' ? acc + area * (Number(tr.querySelector('.consumo')?.value) || 0) * (1 + desperdicio) : acc;
-   }, 0);
-   document.getElementById('mortero').textContent = fmt(totalMorteroVol, 3) + ' m³';
- } else {
-   document.getElementById('mortero').textContent = '— m³';
- }
+ document.getElementById('mortero').textContent=morteroRow?fmt(area*(Number(morteroRow.querySelector('.consumo').value)||0)*(1+desperdicio),3)+' m³':'— m³';
  document.getElementById('resProyecto').textContent=document.getElementById('proyecto').value||'—';
  document.getElementById('resTipo').textContent=document.getElementById('tipo').value;
  document.getElementById('resDim').textContent=fmt(num('largo'))+' × '+fmt(num('altura'))+' m';
@@ -158,18 +172,28 @@ function renumerar(){document.querySelectorAll('#capas tbody tr').forEach((tr,i)
 function eliminarFila(btn){const tr=btn.closest('tr');const tbody=tr.parentElement;if(tbody.rows.length>1){tr.remove();calcular()}else alert('Debe quedar al menos una fila.')}
 function agregarCapa(){
  const tr=document.createElement('tr');
- tr.innerHTML='<td></td><td><input value="Capa complementaria"></td><td><input value="Material arquitectónico"></td><td><input class="espesor" type="number" min="0" step="0.1" value="1.0"></td><td><select><option>Sin envolvente</option><option>Envolvente</option></select></td><td><input value="Especificación técnica de capa"></td><td class="no-print"><button class="danger" onclick="eliminarFila(this)">Quitar</button></td>';
+ tr.innerHTML='<td></td><td><input value="Nueva capa"></td><td><input value="Especificar material"></td><td><input class="espesor" type="number" min="0" step="0.1" value="1"></td><td><select><option>Sin envolvente</option><option>Envolvente</option></select></td><td><input value="Añadir observación"></td><td class="no-print"><button class="danger" onclick="eliminarFila(this)">Quitar</button></td>';
  document.querySelector('#capas tbody').appendChild(tr);calcular()
 }
 function agregarMaterial(){
  const tr=document.createElement('tr');
- tr.innerHTML='<td><input value="Material de partida"></td><td><input class="consumo" type="number" min="0" step="0.001" value="1.0"></td><td><select><option>unidades</option><option>kg</option><option>bolsas</option><option>m³</option><option>litros</option></select></td><td class="cantidad">—</td><td class="no-print"><button class="danger" onclick="eliminarFila(this)">Quitar</button></td>';
+ tr.innerHTML='<td><input value="Nuevo material"></td><td><input class="consumo" type="number" min="0" step="0.001" value="0"></td><td><select><option>unidades</option><option>kg</option><option>bolsas</option><option>m³</option><option>litros</option></select></td><td class="cantidad">—</td><td class="no-print"><button class="danger" onclick="eliminarFila(this)">Quitar</button></td>';
  document.querySelector('#materiales tbody').appendChild(tr);calcular()
 }
-function restablecer(){if(confirm('¿Restablecer los valores estándar normalizados de esta ficha?'))location.reload()}
+function restablecer(){if(confirm('¿Restablecer los valores iniciales de esta ficha?'))location.reload()}
 document.querySelectorAll('input,select,textarea').forEach(el=>el.addEventListener('input',calcular));
 document.getElementById('fecha').textContent=new Date().toLocaleDateString('es-PE');
 calcular();
+
+function applyTheme(theme){
+  document.body.classList.toggle('dark',theme==='dark');
+  const b=document.getElementById('themeButton');
+  if(b){b.textContent=theme==='dark'?'☀️ Modo claro':'🌙 Modo oscuro';b.setAttribute('aria-pressed',theme==='dark'?'true':'false');}
+  try{localStorage.setItem('arquispec-theme',theme)}catch(e){}
+}
+function toggleTheme(){applyTheme(document.body.classList.contains('dark')?'light':'dark')}
+(function(){let theme='light';try{theme=localStorage.getItem('arquispec-theme')||'light'}catch(e){}applyTheme(theme)})();
+
 </script>
 </body>
 </html>
