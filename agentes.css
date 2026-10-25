@@ -1,0 +1,38 @@
+/* ArquiSpec · panel de agentes asistentes */
+.ag-fab{position:fixed;left:18px;bottom:18px;z-index:50;display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:999px;background:linear-gradient(120deg,#1d4ed8,#0ea5e9);color:#fff;font-weight:700;font-size:14px;box-shadow:0 10px 26px #0b1f3a40;border:0;cursor:pointer;transition:transform .15s}
+.ag-fab:hover{transform:translateY(-2px)}
+.ag-fab:focus-visible,.ag-panel button:focus-visible,.ag-panel input:focus-visible{outline:3px solid #93c5fd;outline-offset:2px}
+.ag-hint{position:fixed;left:18px;bottom:72px;z-index:50;max-width:240px;background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:12px 12px 12px 3px;padding:10px 12px;font-size:13px;box-shadow:0 10px 26px #0f172a22;animation:ag-in .35s ease both}
+.ag-hint button{all:unset;cursor:pointer;float:right;margin-left:8px;color:var(--muted);font-size:16px;line-height:1}
+.ag-panel{position:fixed;left:18px;bottom:18px;z-index:60;width:min(390px,calc(100vw - 36px));height:min(640px,calc(100vh - 36px));display:flex;flex-direction:column;background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 50px #0b1f3a45;overflow:hidden;animation:ag-in .25s ease both}
+.ag-panel[hidden]{display:none}
+.ag-head{display:flex;align-items:center;gap:10px;padding:12px 14px;background:linear-gradient(120deg,#0f2a44,#1d5a86);color:#fff}
+.ag-head strong{display:block;font-size:15px}.ag-head small{display:block;font-size:11px;color:#bfdcf1}
+.ag-head .ag-close{all:unset;cursor:pointer;margin-left:auto;font-size:22px;line-height:1;padding:2px 8px;border-radius:6px}
+.ag-head .ag-close:hover{background:#ffffff26}
+.ag-tabs{display:flex;gap:6px;padding:8px 10px;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:thin}
+.ag-tabs button{flex:0 0 auto;padding:6px 10px;border-radius:999px;font-size:12px;background:var(--page);color:var(--text);border:1px solid var(--line)}
+.ag-tabs button[aria-selected="true"]{background:var(--blue);color:#fff;border-color:var(--blue)}
+.ag-msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;background:var(--page)}
+.ag-msg{max-width:88%;padding:9px 12px;border-radius:12px;font-size:13.5px;line-height:1.45;white-space:pre-line;animation:ag-in .2s ease both}
+.ag-msg.bot{align-self:flex-start;background:var(--panel);border:1px solid var(--line);border-bottom-left-radius:3px}
+.ag-msg.me{align-self:flex-end;background:var(--blue);color:#fff;border-bottom-right-radius:3px}
+.ag-msg .who{display:block;font-size:11px;font-weight:700;color:var(--muted);margin-bottom:3px;letter-spacing:.02em}
+.ag-msg a{display:block;margin-top:6px;color:var(--blue);font-weight:650;text-decoration:none}
+.ag-msg a:hover{text-decoration:underline}
+.ag-typing{display:inline-flex;gap:4px;padding:3px 0}
+.ag-typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:ag-dot 1s infinite}
+.ag-typing i:nth-child(2){animation-delay:.15s}.ag-typing i:nth-child(3){animation-delay:.3s}
+.ag-chips{display:flex;flex-wrap:wrap;gap:6px;padding:8px 12px;border-top:1px solid var(--line);max-height:116px;overflow-y:auto}
+.ag-chips button{padding:6px 10px;font-size:12px;border-radius:999px;background:var(--panel);color:var(--blue);border:1px solid var(--blue);font-weight:600}
+.ag-chips button:hover{background:var(--blue);color:#fff}
+.ag-form{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line)}
+.ag-form input{flex:1;min-width:0}
+.ag-form button{padding:9px 14px}
+.ag-foot{font-size:10.5px;color:var(--muted);padding:0 12px 9px;text-align:center}
+.ag-flash{animation:ag-flash 1.8s ease}
+@keyframes ag-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes ag-dot{0%,80%,100%{opacity:.25}40%{opacity:1}}
+@keyframes ag-flash{0%,100%{box-shadow:0 3px 12px #18324d08}20%,70%{box-shadow:0 0 0 4px #38bdf8aa,0 8px 28px #38bdf855}}
+@media(max-width:520px){.ag-panel{left:8px;bottom:8px;width:calc(100vw - 16px);height:min(560px,72vh)}.ag-fab{left:10px;bottom:10px}.ag-hint{left:10px;bottom:62px}}
+@media(prefers-reduced-motion:reduce){.ag-panel,.ag-msg,.ag-hint,.ag-flash,.ag-typing i{animation:none}.ag-fab{transition:none}}
