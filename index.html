@@ -52,12 +52,25 @@ body.dark .stat{background:var(--pale);border-color:var(--line)}body.dark .stat 
 @media print{.side-resources{display:none!important}header{padding-right:22px}main{margin:0;max-width:none;padding:0}body{--page:#fff;--panel:#fff;--text:#000;--line:#bbb;--tablehead:#eee;--hover:#fff;--field:#fff;--fieldtext:#000}}
 
 </style>
+<link rel="stylesheet" href="assets/arquitectura.css">
+<link rel="stylesheet" href="assets/agentes.css">
 </head>
 <body>
-<header>
-  <div class="eyebrow">Documentación técnica · Arquitectura</div>
-  <h1>ArquiSpec | Ficha de muro</h1>
-  <p>Especificaciones de capas, materiales y estimación preliminar de cantidades.</p>
+<header class="hero">
+  <div class="hero-copy">
+    <div class="eyebrow">Documentación técnica · Arquitectura · Perú</div>
+    <h1>ArquiSpec<span>Ficha de muro</span></h1>
+    <p>Especificaciones de capas, materiales y estimación preliminar de cantidades, con una vista previa 3D del muro que estás diseñando.</p>
+    <div class="hero-cta no-print">
+      <a class="btn-hero" href="#sec-datos">Empezar la ficha</a>
+      <button type="button" class="btn-hero ghost" onclick="Agentes.abrir()">🤖 Hablar con un agente</button>
+    </div>
+    <ul class="hero-meta"><li>Capas</li><li>Metrado</li><li>Vista 3D</li></ul>
+  </div>
+  <div class="hero-stage no-print">
+    <div class="scene" id="escenaCasa" role="img" aria-label="Maqueta 3D de una vivienda moderna. Arrastra para girarla." tabindex="0"><div class="rig" id="rigCasa"></div></div>
+    <div class="stage-tag">Maqueta · vista isométrica · arrastra para girar</div>
+  </div>
 </header>
 <main>
   <div class="toolbar">
@@ -66,7 +79,7 @@ body.dark .stat{background:var(--pale);border-color:var(--line)}body.dark .stat 
     <button class="secondary" onclick="window.print()">▤ Imprimir / Guardar PDF</button>
     <button class="secondary" onclick="restablecer()">Restablecer ejemplo</button>
   </div>
-  <section class="panel">
+  <section class="panel" id="sec-datos">
     <h2>01. Datos generales del muro</h2>
     <div class="fields">
       <div><label for="proyecto">Proyecto</label><input id="proyecto" value="Vivienda unifamiliar"></div>
@@ -86,7 +99,37 @@ body.dark .stat{background:var(--pale);border-color:var(--line)}body.dark .stat 
     <div class="stat"><span>Ladrillos estimados</span><strong id="ladrillos">— unid.</strong></div>
     <div class="stat"><span>Mortero estimado</span><strong id="mortero">— m³</strong></div>
   </div>
-  <section class="panel">
+  <section class="panel viewer no-print" id="sec-3d">
+    <h2>Vista previa 3D <small>Arrastra para girar · espesor de capas exagerado ×2</small></h2>
+    <div class="viewer-grid">
+      <div>
+        <div class="viewer-stage">
+          <div class="scene" id="escenaMuro" role="img" aria-label="Modelo 3D del muro con sus capas. Arrastra o usa las flechas del teclado para girarlo." tabindex="0"><div class="rig" id="rigMuro"></div></div>
+          <div class="viewer-axis" aria-hidden="true"><span>← Exterior</span><span>Interior →</span></div>
+          <div class="viewer-ctrls">
+            <button type="button" class="secondary" data-vista="iso" aria-pressed="true">Isométrica</button>
+            <button type="button" class="secondary" data-vista="frente" aria-pressed="false">Frente</button>
+            <button type="button" class="secondary" data-vista="planta" aria-pressed="false">Planta</button>
+            <button type="button" class="secondary" data-vista="corte" aria-pressed="false">Corte</button>
+            <button type="button" class="secondary" data-accion="explotar" aria-pressed="false">Explotar capas</button>
+            <button type="button" class="secondary" data-accion="girar" aria-pressed="false">Girar</button>
+            <label for="zoomMuro">Zoom <input id="zoomMuro" type="range" min="0.6" max="1.6" step="0.05" value="1"></label>
+          </div>
+        </div>
+      </div>
+      <aside class="viewer-legend" aria-label="Leyenda de capas">
+        <h3>Capas (exterior → interior)</h3>
+        <ol id="legendCapas"></ol>
+        <dl>
+          <dt>Longitud</dt><dd id="v3dLargo">—</dd>
+          <dt>Altura</dt><dd id="v3dAlto">—</dd>
+          <dt>Grosor total</dt><dd id="v3dGrosor">—</dd>
+        </dl>
+        <p class="note">Modelo ilustrativo: los colores y texturas se asignan según el nombre del material.</p>
+      </aside>
+    </div>
+  </section>
+  <section class="panel" id="sec-capas">
     <h2>02. Capas constructivas <small>Exterior → interior</small></h2>
     <div class="table-wrap"><table id="capas">
       <thead><tr><th>Orden</th><th>Función / capa</th><th>Material</th><th>Espesor (cm)</th><th>Acabado / envolvente</th><th>Nota técnica</th><th class="no-print">Acción</th></tr></thead>
@@ -100,7 +143,7 @@ body.dark .stat{background:var(--pale);border-color:var(--line)}body.dark .stat 
     <p class="note">El grosor total suma los espesores de esta tabla. Los materiales y espesores mostrados son un ejemplo editable, no una especificación estructural aprobada.</p>
   </section>
   <div class="split">
-    <section class="panel">
+    <section class="panel" id="sec-materiales">
       <h2>03. Materiales y cantidades</h2>
       <div class="table-wrap"><table id="materiales">
         <thead><tr><th>Material</th><th>Consumo base por m²</th><th>Unidad</th><th>Cantidad calculada</th><th class="no-print">Acción</th></tr></thead>
@@ -114,7 +157,7 @@ body.dark .stat{background:var(--pale);border-color:var(--line)}body.dark .stat 
       <div class="table-actions no-print"><button class="secondary" onclick="agregarMaterial()">+ Agregar material</button></div>
       <p class="note">La cantidad = área × consumo base por m² × (1 + desperdicio). Ajusta el consumo a la ficha técnica, el formato del ladrillo y la dosificación del proyecto.</p>
     </section>
-    <section class="panel">
+    <section class="panel" id="sec-resumen">
       <h2>04. Resumen de ficha</h2>
       <div class="summary-list">
         <div>Proyecto</div><div id="resProyecto">Vivienda unifamiliar</div>
@@ -183,7 +226,7 @@ function agregarMaterial(){
  document.querySelector('#materiales tbody').appendChild(tr);calcular()
 }
 function restablecer(){if(confirm('¿Restablecer los valores iniciales de esta ficha?'))location.reload()}
-document.querySelectorAll('input,select,textarea').forEach(el=>el.addEventListener('input',calcular));
+document.addEventListener('input',e=>{if(!e.target.closest('.ag-panel'))calcular()});
 document.getElementById('fecha').textContent=new Date().toLocaleDateString('es-PE');
 calcular();
 
@@ -197,5 +240,7 @@ function toggleTheme(){applyTheme(document.body.classList.contains('dark')?'ligh
 (function(){let theme='light';try{theme=localStorage.getItem('arquispec-theme')||'light'}catch(e){}applyTheme(theme)})();
 
 </script>
+<script src="assets/visor3d.js"></script>
+<script src="assets/agentes.js"></script>
 </body>
 </html>
