@@ -1,0 +1,39 @@
+/* ArquiSpec · usuarios (inicio de sesión) */
+.au-slot{margin-left:auto;display:flex;align-items:center}
+.au-slot[hidden]{display:none}
+.au-chip{display:flex;align-items:center;gap:10px;background:var(--panel,#fff);border:1px solid var(--line,#d9e2ec);border-radius:999px;padding:4px 6px 4px 5px}
+.au-avatar{width:30px;height:30px;border-radius:50%;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;background:var(--blue,#2563eb);color:#fff;font-weight:700;font-size:14px;object-fit:cover}
+.au-info{display:flex;flex-direction:column;line-height:1.15;min-width:0}
+.au-info strong{font-size:13px;color:var(--text,#1e293b);max-width:170px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.au-info small{font-size:11px;color:var(--muted,#64748b);max-width:170px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.au-out{padding:6px 12px!important;font-size:12px!important;border-radius:999px!important}
+
+.au-overlay{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(15,23,42,.55);backdrop-filter:blur(2px)}
+.au-overlay[hidden]{display:none}
+body.au-abierto{overflow:hidden}
+.au-modal{position:relative;width:min(420px,100%);max-height:calc(100vh - 32px);overflow:auto;background:var(--panel,#fff);color:var(--text,#1e293b);border:1px solid var(--line,#d9e2ec);border-radius:16px;padding:24px;box-shadow:0 24px 70px rgba(15,23,42,.35)}
+.au-modal h2{margin:0 0 14px;font-size:20px;color:var(--text,#1e293b)}
+.au-close{position:absolute;top:10px;right:12px;width:34px;height:34px;padding:0!important;border-radius:50%!important;background:transparent;color:var(--muted,#64748b);font-size:24px;line-height:1}
+.au-close:hover{background:var(--hover,#f1f5f9)}
+.au-tabs{display:grid;grid-template-columns:1fr 1fr;gap:4px;background:var(--tablehead,#edf3f9);padding:4px;border-radius:10px;margin-bottom:16px}
+.au-tabs button{background:transparent;color:var(--muted,#64748b);padding:8px 10px;border-radius:8px;font-size:13px}
+.au-tabs button[aria-selected="true"]{background:var(--panel,#fff);color:var(--text,#1e293b);box-shadow:0 1px 4px rgba(15,23,42,.15)}
+.au-google{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:11px 14px;background:#fff;color:#1f2937;border:1px solid #cbd5e1;border-radius:9px;font-weight:650}
+.au-google:hover{background:#f8fafc}
+.au-g{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#fff;border:1px solid #dadce0;font-weight:800;font-size:14px;color:#4285f4}
+.au-sep{display:flex;align-items:center;gap:10px;margin:16px 0;color:var(--muted,#64748b);font-size:12px}
+.au-sep::before,.au-sep::after{content:"";flex:1;height:1px;background:var(--line,#d9e2ec)}
+.au-form [data-solo][hidden]{display:none}
+.au-form>div{margin-bottom:12px}
+.au-hint{font-size:12px;color:var(--muted,#64748b);margin:-4px 0 10px}
+.au-msg{min-height:0;margin:4px 0 10px;font-size:13px;border-radius:8px}
+.au-msg.err{padding:9px 11px;background:#fee2e2;color:#991b1b}
+.au-msg.ok{padding:9px 11px;background:#dcfce7;color:#166534}
+.au-submit{width:100%;background:var(--blue,#2563eb);color:#fff;padding:11px 14px}
+.au-link{display:block;margin:12px auto 0;background:transparent;color:var(--blue,#2563eb);font-size:13px;padding:4px 8px;text-decoration:underline}
+.au-busy{cursor:progress}
+.au-busy button,.au-busy input{opacity:.7}
+.au-modal button:focus-visible,.au-modal input:focus-visible{outline:3px solid #93c5fd;outline-offset:2px}
+body.dark .au-overlay{background:rgba(0,0,0,.65)}
+@media(max-width:520px){.au-slot{margin-left:0;width:100%}.au-chip{width:100%}.au-modal{padding:20px}}
+@media print{.au-slot,.au-overlay{display:none!important}}

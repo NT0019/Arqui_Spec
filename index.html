@@ -54,6 +54,7 @@ body.dark .stat{background:var(--pale);border-color:var(--line)}body.dark .stat 
 </style>
 <link rel="stylesheet" href="assets/arquitectura.css">
 <link rel="stylesheet" href="assets/agentes.css">
+<link rel="stylesheet" href="assets/auth.css">
 </head>
 <body>
 <header class="hero">
@@ -78,6 +79,7 @@ body.dark .stat{background:var(--pale);border-color:var(--line)}body.dark .stat 
     <button class="primary" onclick="calcular()">↻ Recalcular cantidades</button>
     <button class="secondary" onclick="window.print()">▤ Imprimir / Guardar PDF</button>
     <button class="secondary" onclick="restablecer()">Restablecer ejemplo</button>
+    <div class="au-slot no-print" id="auSlot" hidden></div>
   </div>
   <section class="panel" id="sec-datos">
     <h2>01. Datos generales del muro</h2>
@@ -226,7 +228,7 @@ function agregarMaterial(){
  document.querySelector('#materiales tbody').appendChild(tr);calcular()
 }
 function restablecer(){if(confirm('¿Restablecer los valores iniciales de esta ficha?'))location.reload()}
-document.addEventListener('input',e=>{if(!e.target.closest('.ag-panel'))calcular()});
+document.addEventListener('input',e=>{if(!e.target.closest('.ag-panel,.au-overlay'))calcular()});
 document.getElementById('fecha').textContent=new Date().toLocaleDateString('es-PE');
 calcular();
 
@@ -242,5 +244,6 @@ function toggleTheme(){applyTheme(document.body.classList.contains('dark')?'ligh
 </script>
 <script src="assets/visor3d.js"></script>
 <script src="assets/agentes.js"></script>
+<script type="module" src="assets/auth.js"></script>
 </body>
 </html>
